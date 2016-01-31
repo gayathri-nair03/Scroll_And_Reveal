@@ -37,7 +37,7 @@
     </RelativeLayout>
 
 
-    <com.myapplication.HSV1
+    <com.myapplication.SnappingHSV
         android:id="@+id/hsv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
 
         </LinearLayout>
 
-    </com.myapplication.HSV1>
+    </com.myapplication.SnappingHSV>
 
 
     <View

@@ -8,7 +8,7 @@ import android.widget.HorizontalScrollView;
 /**
  * Created by gayathri_nair on 29/01/16.
  */
-public class HSV1 extends HorizontalScrollView {
+public class SnappingHSV extends HorizontalScrollView {
 
     private HorizontalScrollChangeListener scrollListener;
     private boolean mIsScrolling;
@@ -20,19 +20,19 @@ public class HSV1 extends HorizontalScrollView {
         this.scrollListener = l;
     }
 
-    public HSV1(Context context) {
+    public SnappingHSV(Context context) {
         super(context);
     }
 
-    public HSV1(Context context, AttributeSet attrs) {
+    public SnappingHSV(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public HSV1(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SnappingHSV(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public HSV1(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public SnappingHSV(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
@@ -52,7 +52,7 @@ public class HSV1 extends HorizontalScrollView {
                     //If scrolling, but not touching, it means scroll has ended after the delay period - 200
                     if (mIsScrolling && !mIsTouching) {
                         if (scrollListener != null) {
-                            scrollListener.onHorScrollEnd(HSV1.this, scrolledX);
+                            scrollListener.onHorScrollEnd(SnappingHSV.this, scrolledX);
                         }
                     }
                     //set scroll as false, as now scroll has ended
@@ -97,8 +97,8 @@ public class HSV1 extends HorizontalScrollView {
 
     public interface HorizontalScrollChangeListener {
 
-        void onHorScrollChanged(HSV1 v, int l);
+        void onHorScrollChanged(SnappingHSV v, int l);
 
-        void onHorScrollEnd(HSV1 v, int l);
+        void onHorScrollEnd(SnappingHSV v, int l);
     }
 }

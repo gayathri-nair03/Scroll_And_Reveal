@@ -17,24 +17,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadInitialFragment() {
-//        replaceFragmentInDefaultLayout(MyFrag.newInstance(), false);
-//        replaceFragmentInDefaultLayout(DummFrag.newInstance(), false);
-//        replaceFragmentInDefaultLayout(HSV1Frag.newInstance(), false);
-        replaceFragmentInDefaultLayout(HSV2Frag.newInstance(), false);
-//        replaceFragmentInDefaultLayout(HSV3Frag.newInstance(), false);
+        replaceFragment(ContentFragment.newInstance());
     }
 
-    public void replaceFragmentInDefaultLayout(Fragment fragmentToBeLoaded,
-                                               boolean addToBackStack) {
+    public void replaceFragment(Fragment fragmentToBeLoaded) {
         if (!getSupportFragmentManager().isDestroyed()) {
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.mainFrameLayout, fragmentToBeLoaded,
                     "myfrag");
-            if (addToBackStack) {
-                fragmentTransaction.addToBackStack("myfrag");
-            }
             fragmentTransaction.commitAllowingStateLoss();
-        } else {
         }
     }
 }

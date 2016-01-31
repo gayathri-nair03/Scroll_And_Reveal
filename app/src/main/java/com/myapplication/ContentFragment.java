@@ -8,46 +8,46 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
- * Created by gayathri_nair on 27/01/16.
+ * Created by gayathri_nair on 29/01/16.
  */
-public class DummFrag extends Fragment {
+public class ContentFragment extends Fragment {
 
     private View rootView;
     private int amountScrolled;
     private int holderWidth;
-    private int actualBldngHeight;
     private int leftOver;
     private int quarterHolderWidth;
     private TextView label1, label2, label3, label4;
     private int lowerLimit1, lowerLimit2, lowerLimit3, lowerLimit4;
-    private CustomHSBV hsv;
-    private int snapLimit1, snapLimit2, snapLimit3;
+    private SnappingHSV hsv;
+    private int snapLimit0, snapLimit1, snapLimit2, snapLimit3;
+    private ImageView topref;
+    private int topRefHeight;
 
-    public static DummFrag newInstance() {
-        return new DummFrag();
+    public static ContentFragment newInstance() {
+        return new ContentFragment();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.dumm, container, false);
+        rootView = inflater.inflate(R.layout.hsv_two_frag, container, false);
         initViews();
         return rootView;
     }
 
     private void initViews() {
-        hsv = (CustomHSBV) rootView.findViewById(R.id.hsv);
+        hsv = (SnappingHSV) rootView.findViewById(R.id.hsv);
         View milestone = rootView.findViewById(R.id.milestone);
         final View booking = rootView.findViewById(R.id.stage_booking);
         final View possession = rootView.findViewById(R.id.stage_possess);
         final LinearLayout hold = (LinearLayout) rootView.findViewById(R.id.hold);
         final ImageView bldngImg = (ImageView) rootView.findViewById(R.id.imgViewToChange);
-        final ImageView refImg = (ImageView) rootView.findViewById(R.id.dummyImgRef);
+        topref = (ImageView) rootView.findViewById(R.id.dummyImgTop);
         label1 = (TextView) rootView.findViewById(R.id.label_stage1);
         label2 = (TextView) rootView.findViewById(R.id.label_stage2);
         label3 = (TextView) rootView.findViewById(R.id.label_stage3);
@@ -73,10 +73,11 @@ public class DummFrag extends Fragment {
             public void run() {
                 int[] bookingLocn = new int[2];
                 int[] possLocn = new int[2];
-                actualBldngHeight = refImg.getHeight() - leftOver;
                 booking.getLocationOnScreen(bookingLocn);
                 possession.getLocationOnScreen(possLocn);
                 holderWidth = possLocn[0] - bookingLocn[0];
+
+                topRefHeight = topref.getHeight();
 //                adding height of last possession stage
                 holderWidth = holderWidth + lineWidth;
                 quarterHolderWidth = holderWidth / 4;
@@ -86,11 +87,11 @@ public class DummFrag extends Fragment {
         });
 
 
-        final RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) bldngImg.getLayoutParams();
-
-        hsv.setOnScrollViewListener(new CustomHSBV.HorizontalScrollChangeListener() {
+        //Below code is when the dummy image is above the bldng image
+        //and the dummy image's bottom is gradually reduced to REVEAL the building image
+        hsv.setOnScrollViewListener(new SnappingHSV.HorizontalScrollChangeListener() {
             @Override
-            public void onHorScrollChanged(CustomHSBV v, int l) {
+            public void onHorScrollChanged(SnappingHSV v, int l) {
 
                 interpretScrolling(l);
 
@@ -99,16 +100,14 @@ public class DummFrag extends Fragment {
                 int layoutX = layoutLocn[0];
 
                 amountScrolled = milestoneX - layoutX;
-                float ratio = (float) actualBldngHeight / holderWidth;
-                float newHeight = (ratio * amountScrolled) + leftOver;
-
-                rlp.height = (int) newHeight;
-                bldngImg.requestLayout();
+                float ratio = (float) topRefHeight / holderWidth;
+                float difference = (float) (holderWidth - amountScrolled);
+                float newBottom = ratio * difference;
+                topref.setBottom((int) newBottom);
             }
 
             @Override
-            public void onHorScrollStopped(int l) {
-                System.out.println("HEYY! Scroll stopped");
+            public void onHorScrollEnd(SnappingHSV v, int l) {
                 snap(l);
             }
         });
@@ -117,6 +116,7 @@ public class DummFrag extends Fragment {
 
     private void initSnapLimits() {
         int halfInterval = quarterHolderWidth / 2;
+        snapLimit0 = halfInterval;
         snapLimit1 = lowerLimit1 + halfInterval;
         snapLimit2 = lowerLimit2 + halfInterval;
         snapLimit3 = lowerLimit3 + halfInterval;
@@ -151,12 +151,18 @@ public class DummFrag extends Fragment {
             label3.setVisibility(View.VISIBLE);
             label4.setVisibility(View.VISIBLE);
         } else {
-            System.out.println("LOL! Do Nothing");
+            label1.setVisibility(View.INVISIBLE);
         }
     }
 
     private void snap(int l) {
-        if (l >= lowerLimit1 && l < lowerLimit2) {
+        if (l < lowerLimit1) {
+            if (l > snapLimit0) {
+                hsv.smoothScrollTo((quarterHolderWidth), 0);
+            } else {
+                hsv.smoothScrollTo(0, 0);
+            }
+        } else if (l >= lowerLimit1 && l < lowerLimit2) {
             if (l > snapLimit1) {
                 hsv.smoothScrollTo((2 * quarterHolderWidth), 0);
             } else {
@@ -176,8 +182,6 @@ public class DummFrag extends Fragment {
             }
         } else if (l >= lowerLimit4) {
             hsv.smoothScrollTo(holderWidth, 0);
-        } else {
-            System.out.println("LOL! Do Nothing");
         }
     }
 
