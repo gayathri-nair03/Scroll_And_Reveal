@@ -13,10 +13,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        loadInitialFragment();
+        loadScrollRevealFragment();
     }
 
-    private void loadInitialFragment() {
+    private void loadScrollRevealFragment() {
         replaceFragment(ContentFragment.newInstance());
     }
 

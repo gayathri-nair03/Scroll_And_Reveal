@@ -7,6 +7,7 @@ import android.widget.HorizontalScrollView;
 
 /**
  * Created by gayathri_nair on 29/01/16.
+ * For Snapping HSV - refer - http://stackoverflow.com/a/25615932
  */
 public class SnappingHSV extends HorizontalScrollView {
 

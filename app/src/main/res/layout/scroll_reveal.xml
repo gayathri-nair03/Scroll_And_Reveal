@@ -56,14 +56,14 @@
             android:orientation="horizontal">
 
             <View
-                android:id="@+id/stage_booking"
+                android:id="@+id/stage_0"
                 android:layout_width="2dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_vertical"
                 android:background="#ffffff" />
 
             <View
-                android:id="@+id/booking_stage1"
+                android:id="@+id/stage0_stage1"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical"
@@ -111,7 +111,7 @@
                 android:background="#ffffff" />
 
             <View
-                android:id="@+id/stage3_possess"
+                android:id="@+id/stage3_stagefinal"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical"
@@ -119,7 +119,7 @@
                 android:background="#000000" />
 
             <View
-                android:id="@+id/stage_possess"
+                android:id="@+id/stage_final"
                 android:layout_width="2dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_vertical"
@@ -152,7 +152,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="Stage 1"
+            android:text="Indicator 1"
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:visibility="invisible" />
@@ -163,7 +163,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="Stage 2"
+            android:text="Indicator 2"
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:visibility="invisible" />
@@ -174,7 +174,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="Stage 3"
+            android:text="Indicator 3"
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:visibility="invisible" />
@@ -185,7 +185,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="Possession"
+            android:text="Indicator Final"
             android:textColor="#ffffff"
             android:textSize="20sp"
             android:visibility="invisible" />
